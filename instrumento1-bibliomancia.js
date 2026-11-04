@@ -27,7 +27,7 @@
  const originalOracle=A.actions["or-read"];
  A.actions["or-read"]=function(){
    const personal=A.get("bibliomancy").map(x=>x.text+" — "+(x.source||"Biblioteca personal"));
-   A.bibliomancia=[...A.bibliomanciaBase||A.bibliomancia,...personal];
+   A.bibliomancia=[...(A.bibliomanciaBase||A.bibliomancia),...personal];
    A.bibliomanciaBase??=A.bibliomancia.slice(0,A.bibliomancia.length-personal.length);
    return originalOracle.call(A);
  };
