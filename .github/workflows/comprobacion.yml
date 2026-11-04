@@ -1,0 +1,25 @@
+name: Comprobación ARCANA
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Comprobar JavaScript
+        run: |
+          for f in instrumento1-core.js instrumento1-rituales.js instrumento1-vistas.js instrumento1-acciones.js instrumento1-inicio.js; do
+            node --check "$f"
+          done
+      - name: Comprobar estructura
+        run: |
+          test -s index.html
+          test -s instrumento1.html
+          test -s instrumento1.css
+          grep -q 'instrumento1-core.js' instrumento1.html
+          grep -q 'instrumento1.html' index.html
