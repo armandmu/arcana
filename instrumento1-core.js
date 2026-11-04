@@ -81,7 +81,7 @@ const I1={
  document.getElementById("screen").addEventListener("click",e=>{const b=e.target.closest("[data-action]");if(b){const action=b.dataset.action;this.handle(action,b.dataset.id)}});
  document.getElementById("export").addEventListener("click",()=>this.export());
  document.getElementById("import").addEventListener("change",e=>this.import(e.target.files[0]));
- document.getElementById("wipe").addEventListener("click",()=>{if(confirm("¿Borrar definitivamente todos los datos guardados en este instrumento?")){for(const key of ["sigils","servitors","oracles","rituals","history","diary"])localStorage.removeItem(this.prefix+key);this.render();this.toast("Datos eliminados") }});
+ document.getElementById("wipe").addEventListener("click",()=>{if(confirm("¿Borrar definitivamente todos los datos guardados en este instrumento?")){for(const key of ["sigils","servitors","oracles","rituals","history","diary","bibliomancy"])localStorage.removeItem(this.prefix+key);this.render();this.toast("Datos eliminados") }});
  const init=location.hash.replace("#","");this.show(["sigilos","gnosis","servidores","oraculos","rituales","diario"].includes(init)?init:"sigilos");
  },
  show(id){this.stop();this.view=id;history.replaceState(null,"","#"+id);document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));this.render();window.scrollTo({top:0,behavior:"instant"})},
