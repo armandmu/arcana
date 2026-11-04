@@ -7,7 +7,7 @@ const mem=new Map();
 const store={getItem:k=>mem.get(k)??null,setItem:(k,v)=>mem.set(k,v),removeItem:k=>mem.delete(k)};
 const context={window:{scrollTo(){}},document:{getElementById:get,querySelectorAll:()=>[],querySelector:()=>null},localStorage:store,crypto:webcrypto,history:{replaceState(){}},location:{hash:""},confirm:()=>true,prompt:()=>"",console,Date,Math,JSON,Number,String,Array,Set,Map,URL,Uint32Array,clearTimeout,setTimeout,clearInterval,setInterval};
 vm.createContext(context);
-for(const f of ["instrumento1-core.js","instrumento1-rituales.js","instrumento1-vistas.js","instrumento1-acciones.js","instrumento1-mejoras.js","instrumento1-flujos.js","instrumento1-algoritmos.js","instrumento1-oraculo-fiel.js","instrumento1-pulido.js","instrumento1-manual.js","instrumento1-auditoria.js","instrumento1-bibliomancia.js"]){vm.runInContext(fs.readFileSync(f,"utf8"),context,{filename:f})}
+for(const f of ["instrumento1-core.js","instrumento1-rituales.js","instrumento1-vistas.js","instrumento1-acciones.js","instrumento1-mejoras.js","instrumento1-flujos.js","instrumento1-algoritmos.js","instrumento1-oraculo-fiel.js","instrumento1-pulido.js","instrumento1-manual.js","instrumento1-auditoria.js","instrumento1-bibliomancia.js","instrumento1-patrones.js"]){vm.runInContext(fs.readFileSync(f,"utf8"),context,{filename:f})}
 const A=context.window.I1;
 assert.equal(A.gnosis.length,14,"14 técnicas de gnosis");
 assert.equal(A.builtins.length,5,"5 rituales");
@@ -76,4 +76,9 @@ A.actions.bkRemove(A.get("bibliomancy")[0].id);
 assert.equal(A.get("bibliomancy").length,0,"Se elimina el texto personal");
 A.applyDiary();
 assert(get("dj-list").innerHTML.includes("Servidor anterior"),"Nombre del servidor vinculado");
+assert.equal(A.breathDefaults["3-2-4"],6,"Patrón rápido: seis ciclos");
+assert.equal(A.breathDefaults["4-4-6"],10,"Patrón relajado: diez ciclos");
+assert.equal(A.breathDefaults["4-7-8"],8,"Patrón energizante: ocho ciclos");
+assert.equal(A.breathDefaults["6-6-6"],12,"Patrón intenso: doce ciclos");
+assert(A.viewGnosis().includes('3–2–4'),"El patrón rápido figura en la interfaz");
 console.log("PRUEBAS OK: 6 vistas, 3 sigilos, 14 técnicas, 5 rituales, guardar y gestión de servidores, oráculos y diario.");
