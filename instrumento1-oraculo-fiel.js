@@ -85,6 +85,34 @@ const matrix=[
 "Doble guerra: conflicto total. Agresión sin reservas. No contengas nada."
 ]
 ];
+A.oraculoBin=[
+ "El vacío habla con silencio. Espera.",
+ "Una única chispa en la oscuridad. El comienzo.",
+ "Dos caminos se separan. Elige sin vacilar.",
+ "Crecimiento desde la nada. Confía en el proceso.",
+ "Los cimientos están asentados. Construye sobre ellos.",
+ "El cambio se extiende en ondas. Tu influencia se propaga.",
+ "La armonía surge del caos. Equilibrio encontrado.",
+ "La puerta se abre. Atraviésala.",
+ "Inversión. Lo que estaba arriba está ahora abajo.",
+ "La espiral gira hacia el interior. Es necesaria la introspección.",
+ "Una conexión tiende un puente. Acércate.",
+ "La abundancia se desborda. Comparte libremente.",
+ "La torre tiembla. Prepárate para una sacudida.",
+ "La transformación se acelera. Entrégate a ella.",
+ "La estrella brilla con fuerza. Tu voluntad se manifiesta.",
+ "Finalización. El círculo se cierra."
+];
+A.oraculoA=[
+ "Se abre ante ti el camino de la magia pura. Confía en el proceso: tu voluntad da forma a la realidad.",
+ "Muerte y transformación. Algo debe terminar para que pueda empezar lo nuevo. Afloja el control.",
+ "La abundancia material fluye hacia ti. Los pasos prácticos dan recompensas tangibles.",
+ "El amor y la conexión son la respuesta. Abre el corazón: la vulnerabilidad es fuerza aquí.",
+ "El yo exige atención. ¿En quién te estás convirtiendo? Hace falta una transformación del ego.",
+ "Surge la fuerza creativa y vital. Canaliza tu pasión hacia la creación. Abunda la energía de vida.",
+ "El intelecto ilumina el camino. Piensa con claridad, comunica con precisión y diseña una estrategia.",
+ "Conflicto y competencia. Afírmate con fuerza. La victoria favorece a quien actúa con decisión."
+];
 const previous=A.actions["or-read"];
 A.actions["or-read"]=function(){
  previous.call(A);
