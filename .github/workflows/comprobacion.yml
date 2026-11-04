@@ -16,6 +16,8 @@ jobs:
           for f in instrumento1-core.js instrumento1-rituales.js instrumento1-vistas.js instrumento1-acciones.js instrumento1-inicio.js; do
             node --check "$f"
           done
+      - name: Ejecutar pruebas de funciones
+        run: node tests/instrumento1.test.cjs
       - name: Comprobar estructura
         run: |
           test -s index.html
