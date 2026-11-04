@@ -19,6 +19,7 @@ const guides={
 };
 const first=A.actions.gselect;
 A.actions.gselect=function(id){first.call(A,id);const target=document.getElementById("g-method");const guide=guides[id];if(target&&guide)target.innerHTML+='<ol>'+guide.map(x=>'<li>'+A.safe(x)+'</li>').join("")+'</ol>'};
+A.rtShow=A.actions.rtShow;
 const oldRitualShow=A.rtShow;
 A.rtShow=function(){A.stop();oldRitualShow.call(this);if(!this.ritual||!this.ritualStarted)return;const s=this.ritual.steps[this.ritualIdx];let remaining=Number(s.time)||0;if(!remaining)return;
  const target=document.getElementById("rt-clock");this.timer=setInterval(()=>{remaining--;if(target)target.textContent=String(Math.floor(remaining/60)).padStart(2,"0")+":"+String(remaining%60).padStart(2,"0");if(remaining<=0){A.stop();A.toast("Tiempo del paso finalizado. Continúa cuando quieras.")}},1000)};
