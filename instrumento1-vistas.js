@@ -72,7 +72,7 @@
  this.field("Intención","dj-intent","","textarea")+this.field("Símbolos y asociaciones","dj-symbols","","textarea")+
  this.field("Resultado observado","dj-result","","textarea")+this.field("Sueños","dj-dreams","","textarea")+
  this.field("Notas","dj-notes","","textarea")+this.field("Etiquetas (separadas por comas)","dj-tags")+
- this.select("Servidor relacionado","dj-servitor",[["","Ninguno"],...this.get("servitors").map(x=>[x.id,x.name])])+
+ this.select("Servidor relacionado","dj-servitor",[["","Sin servidor asociado"],...this.get("servitors").map(x=>[x.id,x.name+" · "+({active:"activo",dormant:"en reposo",dissolved:"disuelto"}[x.status]||"sin estado")])])+(this.get("servitors").length===0?'<div class="empty-link"><p>Todavía no has creado servidores. Este campo es opcional; puedes guardar el diario sin vincular ninguno.</p>'+this.btn("Crear mi primer servidor","djToServitors","ghost")+'</div>':'<p class="small muted">Vincula un servidor de tu laboratorio si este registro forma parte de su práctica.</p>')+
  this.select("Ritual relacionado","dj-ritual",[["","Ninguno"],...this.allRituals().map(x=>[x.id,x.name])])+
  '<h4>Ecuación simbólica de Carroll</h4><p class="small">M = (G/10) × (L/10) × (1 − A/10) × (1 − R/10). Es un indicador interno del modelo, no una medición de efectos.</p>'
  +'<div class="two">'+this.field("Gnosis · G (0–10)","dj-g",5,"number",'min="0" max="10"')+
