@@ -74,4 +74,6 @@ A.actions["or-read"]();
 assert.equal(A.get("oracles").length,2,"Bibliomancia ejecutada");
 A.actions.bkRemove(A.get("bibliomancy")[0].id);
 assert.equal(A.get("bibliomancy").length,0,"Se elimina el texto personal");
+A.applyDiary();
+assert(get("dj-list").innerHTML.includes("Servidor anterior"),"Nombre del servidor vinculado");
 console.log("PRUEBAS OK: 6 vistas, 3 sigilos, 14 técnicas, 5 rituales, guardar y gestión de servidores, oráculos y diario.");
