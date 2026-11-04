@@ -37,10 +37,10 @@ A.actions={
  const keys=[["Nombre",x.name],["Finalidad",x.purpose],["Apariencia",x.appearance],["Alojamiento",x.housing],["Señal de activación",x.activationTrigger],["Método de alimentación",x.feedingMethod],["Frecuencia",({daily:"Diaria",weekly:"Semanal",monthly:"Mensual"}[x.frequency])],["Finalización prevista",x.lifespan||"Sin fecha"],["Condición de disolución",x.dissolutionCondition],["Método de disolución",x.dissolutionMethod],["Sigilo · letras",x.sigil?.letters||""],["Estado",x.status]];
  document.getElementById("sv-detail").innerHTML='<div class="stack">'+keys.map(([k,v])=>'<div><strong>'+esc(k)+':</strong> '+esc(v||"—")+'</div>').join("")+'<h4>Registro de acciones</h4>'+x.activityLog.map(e=>'<p>'+esc(A.date(e.date))+' · '+esc(e.action)+' · '+esc(e.notes)+'</p>').join("")+'</div>';document.getElementById("sv-detail").scrollIntoView({behavior:"smooth",block:"center"})},
  svupdate(id,action){const list=A.get("servitors");const x=list.find(a=>a.id===id);if(!x||x.status==="dissolved")return;let notes="";
- if(action==="disolver"){if(!confirm("La disolución será permanente en el historial. ¿Continuar?"))return;notes=prompt("Motivo de la disolución:")||"";x.status="dissolved"}
- if(action==="alimentar"){notes=prompt("Notas de la alimentación (opcional):")||"";x.lastFed=A.now()}
- if(action==="reposo"){notes=prompt("Notas (opcional):")||"";x.status="dormant"}
- if(action==="activar"){notes=prompt("Notas (opcional):")||"";x.status="active"}
+ if(action==="disolver"){if(!confirm("La disolución será permanente en el historial. ¿Continuar?"))return;notes=prompt("Motivo de la disolución:");if(notes===null)return;x.status="dissolved"}
+ if(action==="alimentar"){notes=prompt("Notas de la alimentación (opcional):");if(notes===null)return;x.lastFed=A.now()}
+ if(action==="reposo"){notes=prompt("Notas (opcional):");if(notes===null)return;x.status="dormant"}
+ if(action==="activar"){notes=prompt("Notas (opcional):");if(notes===null)return;x.status="active"}
  x.activityLog.push({date:A.now(),action,notes});A.put("servitors",list);A.toast("Actividad registrada");A.render()},
  svfeed(id){A.actions.svupdate(id,"alimentar")},svsleep(id){A.actions.svupdate(id,"reposo")},svactivate(id){A.actions.svupdate(id,"activar")},svdissolve(id){A.actions.svupdate(id,"disolver")},
  "or-read"(){const method=val("or-method"),q=val("or-question").trim();let txt="",details="",visual="";const colors=A.colors;
