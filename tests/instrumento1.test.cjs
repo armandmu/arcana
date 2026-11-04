@@ -7,7 +7,7 @@ const mem=new Map();
 const store={getItem:k=>mem.get(k)??null,setItem:(k,v)=>mem.set(k,v),removeItem:k=>mem.delete(k)};
 const context={window:{scrollTo(){}},document:{getElementById:get,querySelectorAll:()=>[],querySelector:()=>null},localStorage:store,crypto:webcrypto,history:{replaceState(){}},location:{hash:""},confirm:()=>true,prompt:()=>"",console,Date,Math,JSON,Number,String,Array,Set,Map,URL,Uint32Array,clearTimeout,setTimeout,clearInterval,setInterval};
 vm.createContext(context);
-for(const f of ["instrumento1-core.js","instrumento1-rituales.js","instrumento1-vistas.js","instrumento1-acciones.js","instrumento1-mejoras.js","instrumento1-flujos.js","instrumento1-algoritmos.js","instrumento1-oraculo-fiel.js","instrumento1-pulido.js","instrumento1-manual.js"]){vm.runInContext(fs.readFileSync(f,"utf8"),context,{filename:f})}
+for(const f of ["instrumento1-core.js","instrumento1-rituales.js","instrumento1-vistas.js","instrumento1-acciones.js","instrumento1-mejoras.js","instrumento1-flujos.js","instrumento1-algoritmos.js","instrumento1-oraculo-fiel.js","instrumento1-pulido.js","instrumento1-manual.js","instrumento1-auditoria.js"]){vm.runInContext(fs.readFileSync(f,"utf8"),context,{filename:f})}
 const A=context.window.I1;
 assert.equal(A.gnosis.length,14,"14 técnicas de gnosis");
 assert.equal(A.builtins.length,5,"5 rituales");
@@ -45,4 +45,21 @@ get("rt-opening").checked=true;get("rt-closing").checked=true;
 A.actions.rtstart();assert.equal(A.ritual.steps.length,37,"15 + 7 + 15 pasos");
 A.actions.rtstart();assert.equal(A.ritual.steps.length,37,"reinicio sin duplicar pasos");
 A.stop();
+assert(A.viewDiary().includes("Todavía no has creado servidores")===false,"Hay un servidor ya creado");
+mem.set("arcana_v1",JSON.stringify({
+ serv:[{id:100,name:"Servidor anterior",purpose:"Organizar una tarea",status:"Pausado",limit:"Hasta terminar",date:"2026-07-11T12:00:00Z"}],
+ diary:[{id:101,title:"Diario anterior",body:"Un apunte anterior",date:"2026-07-12T12:00:00Z"}]
+}));
+A.actions.legacyServitors();
+A.actions.legacyDiary();
+assert.equal(A.get("servitors").length,2,"Importa servidores antiguos");
+assert.equal(A.get("diary").length,2,"Importa diario anterior");
+A.actions.legacyServitors();
+A.actions.legacyDiary();
+assert.equal(A.get("servitors").length,2,"La migración no duplica servidores");
+assert.equal(A.get("diary").length,2,"La migración no duplica diarios");
+assert(A.viewDiary().includes("Servidor anterior"),"Aparece como seleccionable el servidor recuperado");
+A.view="diario";get("dj-tech").value="Meditación";get("dj-intent").value="Registrar";
+get("dj-servitor").value="legacy-srv-100";A.actions.djsave();
+assert.equal(A.get("diary").at(-1).linkedServitorId,"legacy-srv-100","Se guarda vínculo con servidor recuperado");
 console.log("PRUEBAS OK: 6 vistas, 3 sigilos, 14 técnicas, 5 rituales, guardar y gestión de servidores, oráculos y diario.");
