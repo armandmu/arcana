@@ -13,7 +13,7 @@ jobs:
           node-version: "22"
       - name: Comprobar JavaScript
         run: |
-          for f in instrumento1-core.js instrumento1-rituales.js instrumento1-vistas.js instrumento1-acciones.js instrumento1-inicio.js; do
+          for f in instrumento1-*.js; do
             node --check "$f"
           done
       - name: Ejecutar pruebas de funciones
@@ -23,5 +23,6 @@ jobs:
           test -s index.html
           test -s instrumento1.html
           test -s instrumento1.css
+          test -s instrumento1-manual.css
           grep -q 'instrumento1-core.js' instrumento1.html
           grep -q 'instrumento1.html' index.html
