@@ -7,7 +7,7 @@ const mem=new Map();
 const store={getItem:k=>mem.get(k)??null,setItem:(k,v)=>mem.set(k,v),removeItem:k=>mem.delete(k)};
 const context={window:{scrollTo(){}},document:{getElementById:get,querySelectorAll:()=>[],querySelector:()=>null},localStorage:store,crypto:webcrypto,history:{replaceState(){}},location:{hash:""},confirm:()=>true,prompt:()=>"",console,Date,Math,JSON,Number,String,Array,Set,Map,URL,Uint32Array,clearTimeout,setTimeout,clearInterval,setInterval};
 vm.createContext(context);
-for(const f of ["instrumento1-core.js","instrumento1-rituales.js","instrumento1-vistas.js","instrumento1-acciones.js","instrumento1-mejoras.js","instrumento1-flujos.js","instrumento1-manual.js"]){vm.runInContext(fs.readFileSync(f,"utf8"),context,{filename:f})}
+for(const f of ["instrumento1-core.js","instrumento1-rituales.js","instrumento1-vistas.js","instrumento1-acciones.js","instrumento1-mejoras.js","instrumento1-flujos.js","instrumento1-algoritmos.js","instrumento1-oraculo-fiel.js","instrumento1-manual.js"]){vm.runInContext(fs.readFileSync(f,"utf8"),context,{filename:f})}
 const A=context.window.I1;
 assert.equal(A.gnosis.length,14,"14 técnicas de gnosis");
 assert.equal(A.builtins.length,5,"5 rituales");
@@ -27,7 +27,7 @@ A.view="servidores";get("sv-name").value="Aelor";get("sv-purpose").value="Planif
 const id=A.get("servitors")[0].id;A.actions.svfeed(id);assert(A.get("servitors")[0].lastFed,"servidor alimentado");
 A.actions.svsleep(id);assert.equal(A.get("servitors")[0].status,"dormant");
 A.actions.svactivate(id);assert.equal(A.get("servitors")[0].status,"active");
-A.view="oraculos";get("or-method").value="colors";get("or-question").value="¿Qué debo revisar?";A.actions["or-read"]();assert.equal(A.get("oracles").length,1);assert(A.get("oracles")[0].details.includes("Interpretación específica"));
+A.view="oraculos";get("or-method").value="colors";get("or-question").value="¿Qué debo revisar?";A.actions["or-read"]();assert.equal(A.get("oracles").length,1);assert(A.get("oracles")[0].details.includes("Interpretación original, traducida"));
 A.view="rituales";get("rt-template").value="gpr";A.actions.rtload();assert.equal(A.ritual.steps.length,15);A.actions.rtstart();A.actions.rtnext();A.stop();
 A.view="diario";get("dj-tech").value="Meditación";get("dj-intent").value="Claridad";A.actions.djsave();assert.equal(A.get("diary").length,1);
 assert(A.viewSigils().includes("Secuencia guiada de carga"),"Guía interactiva de carga");
