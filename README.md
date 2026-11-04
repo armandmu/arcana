@@ -36,3 +36,13 @@ La interfaz del instrumento 1 muestra una guía por pasos en cada apartado, expl
 - Las técnicas históricas que implican colapso físico, dolor o hiperventilación se explican, pero se sustituyen por opciones guiadas de menor riesgo. Por ello la ejecución **no reproduce literalmente todas las prácticas físicas** del original.
 
 La aplicación no almacena datos en la nube y GitHub Pages no sincroniza la información entre dispositivos. Exporta una copia JSON para trasladar tus anotaciones. No se garantiza equivalencia byte por byte con el programa TypeScript original; se trata de una adaptación web con funciones equivalentes y añadidos de accesibilidad.
+
+## Auditoría de datos y selección de relaciones (4 de noviembre de 2026)
+
+El Libro negro distingue ahora entre no tener servidores creados y elegir voluntariamente no asociar uno. Si el laboratorio está vacío, explica la situación y ofrece un acceso directo para crear el primero. Cuando existen servidores, muestra también si están activos, en reposo o disueltos. Las entradas del diario muestran el nombre del servidor y del ritual relacionados.
+
+La primera versión del gabinete utilizaba la clave local `arcana_v1`, con colecciones `serv` y `diary`. El instrumento ampliado utiliza colecciones separadas bajo `arcana-chaos-v2-`. Para evitar que los registros antiguos parecieran desaparecer, el laboratorio y el diario ofrecen una **migración opcional, sin sobrescribir registros** y con comprobación de duplicados. La versión antigua permanece intacta. Los campos que no existían antes quedan vacíos para que puedan revisarse.
+
+La bibliomancia permite añadir y eliminar fragmentos propios de hasta 4.000 caracteres. Estos se incluyen en el respaldo JSON, compatible con respaldos previos que no disponían de biblioteca. También se incorporó el patrón respiratorio 6–6–6 de la fuente original.
+
+Las pruebas automáticas cubren flujos, guardado, recuperación de datos, relaciones y ausencia de duplicados. La comparación con el repositorio es funcional: el programa original es una aplicación de terminal; la versión web añade elementos visuales y sustituciones seguras para ejercicios físicos de riesgo. La selección de un `<select>` puede heredar colores de resaltado del sistema operativo aunque el menú cerrado esté adaptado al tema.
