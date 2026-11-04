@@ -7,7 +7,7 @@ const mem=new Map();
 const store={getItem:k=>mem.get(k)??null,setItem:(k,v)=>mem.set(k,v),removeItem:k=>mem.delete(k)};
 const context={window:{scrollTo(){}},document:{getElementById:get,querySelectorAll:()=>[],querySelector:()=>null},localStorage:store,crypto:webcrypto,history:{replaceState(){}},location:{hash:""},confirm:()=>true,prompt:()=>"",console,Date,Math,JSON,Number,String,Array,Set,Map,URL,Uint32Array,clearTimeout,setTimeout,clearInterval,setInterval};
 vm.createContext(context);
-for(const f of ["instrumento1-core.js","instrumento1-rituales.js","instrumento1-vistas.js","instrumento1-acciones.js","instrumento1-mejoras.js","instrumento1-flujos.js","instrumento1-algoritmos.js","instrumento1-oraculo-fiel.js","instrumento1-manual.js"]){vm.runInContext(fs.readFileSync(f,"utf8"),context,{filename:f})}
+for(const f of ["instrumento1-core.js","instrumento1-rituales.js","instrumento1-vistas.js","instrumento1-acciones.js","instrumento1-mejoras.js","instrumento1-flujos.js","instrumento1-algoritmos.js","instrumento1-oraculo-fiel.js","instrumento1-pulido.js","instrumento1-manual.js"]){vm.runInContext(fs.readFileSync(f,"utf8"),context,{filename:f})}
 const A=context.window.I1;
 assert.equal(A.gnosis.length,14,"14 técnicas de gnosis");
 assert.equal(A.builtins.length,5,"5 rituales");
@@ -33,4 +33,16 @@ A.view="diario";get("dj-tech").value="Meditación";get("dj-intent").value="Clari
 assert(A.viewSigils().includes("Secuencia guiada de carga"),"Guía interactiva de carga");
 assert(A.viewGnosis().includes("field-help"),"Instrucciones de los campos");
 assert(A.viewRituals().includes("field-help"),"Instrucciones rituales");
+assert.equal(A.originalColorMatrix.length,8);
+assert.equal(A.originalColorMatrix.flat().length,64);
+assert(A.originalSigilGrid("El progreso","spare").length>0);
+assert(A.originalSigilGrid("El progreso","witch_circle").length>0);
+assert(A.originalSigilGrid("El progreso","magic_square").length>0);
+A.view="sigilos";A.actions.schargeStart();assert.equal(A.chargeIndex,0);
+A.actions.schargeNext();assert.equal(A.chargeIndex,1);
+A.view="rituales";get("rt-template").value="invocation";A.actions.rtload();
+get("rt-opening").checked=true;get("rt-closing").checked=true;
+A.actions.rtstart();assert.equal(A.ritual.steps.length,37,"15 + 7 + 15 pasos");
+A.actions.rtstart();assert.equal(A.ritual.steps.length,37,"reinicio sin duplicar pasos");
+A.stop();
 console.log("PRUEBAS OK: 6 vistas, 3 sigilos, 14 técnicas, 5 rituales, guardar y gestión de servidores, oráculos y diario.");
