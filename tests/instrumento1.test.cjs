@@ -7,7 +7,7 @@ const mem=new Map();
 const store={getItem:k=>mem.get(k)??null,setItem:(k,v)=>mem.set(k,v),removeItem:k=>mem.delete(k)};
 const context={window:{scrollTo(){}},document:{getElementById:get,querySelectorAll:()=>[],querySelector:()=>null},localStorage:store,crypto:webcrypto,history:{replaceState(){}},location:{hash:""},confirm:()=>true,prompt:()=>"",console,Date,Math,JSON,Number,String,Array,Set,Map,URL,Uint32Array,clearTimeout,setTimeout,clearInterval,setInterval};
 vm.createContext(context);
-for(const f of ["instrumento1-core.js","instrumento1-rituales.js","instrumento1-vistas.js","instrumento1-acciones.js","instrumento1-mejoras.js","instrumento1-flujos.js","instrumento1-algoritmos.js","instrumento1-oraculo-fiel.js","instrumento1-pulido.js","instrumento1-manual.js","instrumento1-auditoria.js"]){vm.runInContext(fs.readFileSync(f,"utf8"),context,{filename:f})}
+for(const f of ["instrumento1-core.js","instrumento1-rituales.js","instrumento1-vistas.js","instrumento1-acciones.js","instrumento1-mejoras.js","instrumento1-flujos.js","instrumento1-algoritmos.js","instrumento1-oraculo-fiel.js","instrumento1-pulido.js","instrumento1-manual.js","instrumento1-auditoria.js","instrumento1-bibliomancia.js"]){vm.runInContext(fs.readFileSync(f,"utf8"),context,{filename:f})}
 const A=context.window.I1;
 assert.equal(A.gnosis.length,14,"14 técnicas de gnosis");
 assert.equal(A.builtins.length,5,"5 rituales");
@@ -62,4 +62,16 @@ assert(A.viewDiary().includes("Servidor anterior"),"Aparece como seleccionable e
 A.view="diario";get("dj-tech").value="Meditación";get("dj-intent").value="Registrar";
 get("dj-servitor").value="legacy-srv-100";A.actions.djsave();
 assert.equal(A.get("diary").at(-1).linkedServitorId,"legacy-srv-100","Se guarda vínculo con servidor recuperado");
+
+assert(A.viewDiary().includes("Servidor anterior"),"El menú reconoce los servidores recuperados");
+assert(A.viewOracles().includes("Biblioteca personal"),"Se muestra el editor de textos de bibliomancia");
+get("bk-passage").value="Un fragmento propio de prueba";
+get("bk-source").value="Escritura personal";
+A.actions.bkAdd();
+assert.equal(A.get("bibliomancy").length,1,"Se guarda un texto personal");
+A.view="oraculos";get("or-question").value="Una consulta de prueba";get("or-method").value="book";
+A.actions["or-read"]();
+assert.equal(A.get("oracles").length,2,"Bibliomancia ejecutada");
+A.actions.bkRemove(A.get("bibliomancy")[0].id);
+assert.equal(A.get("bibliomancy").length,0,"Se elimina el texto personal");
 console.log("PRUEBAS OK: 6 vistas, 3 sigilos, 14 técnicas, 5 rituales, guardar y gestión de servidores, oráculos y diario.");
